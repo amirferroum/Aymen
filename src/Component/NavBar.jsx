@@ -1,4 +1,4 @@
-import React,{useState}from 'react'
+import React,{useState,useEffect}from 'react'
 import {AiOutlineClose} from 'react-icons/ai'
 import {HiOutlineMenuAlt4} from 'react-icons/hi'
 import {RiMenu3Line} from 'react-icons/ri'
@@ -7,13 +7,25 @@ import {FaFacebook,FaTwitter,FaYoutube,FaPinterest,FaInstagram} from 'react-icon
 const NavBar = () => {
     const [nav,setNav] = useState(false);
     const [logo,setLogo] = useState(false);
+    const [top, setTop] = useState(true);
+
+    useEffect(() => {
+      const scrollHandler = () => {
+        window.scrollY > 10 ? setTop(false) : setTop(true)
+      };
+      window.addEventListener('scroll', scrollHandler);
+      return () => window.removeEventListener('scroll', scrollHandler);
+    }, [top]);
+
     const handleNav=  () => {
         setNav(!nav)
         setLogo(!logo)
         }
   return (
-    <div className='fixed text-[#6c2d7e]  flex justify-between items-center px-4 md:px-24  py-2 w-full h-20 bg-[#17181d] z-10 '>
+ 
+        <div className={`sticky top-0 z-20 text-[#6c2d7e]  flex justify-between items-center px-4 md:px-24  py-2 w-full  h-20 bg-tr bg-[#17181d] z-10  ${!top && `shadow-lg`}`}>
        <div>
+        
        <h1 className={logo ? 'hidden' : 'block'}>Aymen</h1>
        </div>
         
